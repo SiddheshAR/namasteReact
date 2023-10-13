@@ -2,9 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {HdFunct} from "/src/components/header.jsx";
 import {Body_f} from "/src/components/restaurantCards.js";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
 import Aboutus from "./src/components/about";
-import ErrorPage from "./src/components/errorpg"
+import ErrorPage from "./src/components/errorpg";
+import ContactPage from "./src/components/contact";
+import RestaurantPage from "./src/components/restaurantPage"
 let root = ReactDOM.createRoot(document.getElementById("root1"));
 
 
@@ -18,7 +20,7 @@ const AppLayout =()=>{
     return(
     <>
     <HdFunct />
-    <Body_f />
+        <Outlet />
     <Footer_f />
     </>)
 }
@@ -27,20 +29,28 @@ const appRouter = createBrowserRouter([
     {
         path:"/",
         element:<AppLayout />,
-        errorElement:<Error />
-    },
-    {
-        path:"/about",
-        element:<Aboutus />
-    }
-    ,
-    {
-        path:"/*",
-        element:<ErrorPage />
+        errorElement:<ErrorPage />,
+        children:[
+            {
+                path:"/",
+                element:<Body_f />
+            },
+            {
+                path:"/about",
+                element:<Aboutus />
+            },
+            {
+                path:"/contact",
+                element:<ContactPage />
+            },
+            {
+                path:"/restaurants/:id",
+                element:<RestaurantPage />
+            }
+        ]
     }
 ])
 
-// console.log(swiggy.restaurants[0].info.name)
 root.render(<RouterProvider router={appRouter} />);
 
 

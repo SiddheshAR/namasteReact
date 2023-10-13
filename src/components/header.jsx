@@ -1,5 +1,6 @@
 
 import  {useState} from "react";
+import { Link } from "react-router-dom";
 
 export const HdFunct =()=>{
     const [log_status,log_update]=useState(true);
@@ -13,13 +14,16 @@ export const HdFunct =()=>{
             {/* Nav Items */}
             <div id="nav-items">
                 <ul>
+                <Link to="/">
                     <li> <a href="/">Home</a></li>
-                    <li style={{
-                        backgroundColor:"greenyellow",
-                        fontSize:"20px"
-                    }}>About</li>
+                    </Link>
+                    <Link to="/about">
+                        <li>About</li>
+                    </Link>
                     <li>Service</li>
-                    <li>Contact</li>
+                    <Link to="/contact">
+                        <li>Contact</li>
+                    </Link>
                     <button
                     id="sign-up" 
                     placeholder="Okk"

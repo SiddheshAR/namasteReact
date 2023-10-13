@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 #logo1 {
     width:130px;
     height: 100px;
@@ -57,4 +59,15 @@
 #shimmerFont{
     background-color: #D3D3D3;
     color:#D3D3D3;
+}
+
+#Resto-Details>h3{
+    color: rgb(24, 24, 24);
+    font-family: 'Poppins';
+}
+
+#resto-pg-image>img{
+    /* height: 25px; */
+    width:200px;
+    /* image-resolution:contain; */
 }
