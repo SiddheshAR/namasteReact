@@ -71,3 +71,13 @@
     width:200px;
     /* image-resolution:contain; */
 }
+h4{
+    font-family: 'Poppins';
+}
+
+#rest_page_container{
+    display: flex;
+    justify-content: space-around;
+    width:50%;
+    margin:auto;
+}

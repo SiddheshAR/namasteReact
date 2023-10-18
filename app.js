@@ -20,7 +20,7 @@ const AppLayout =()=>{
     return(
     <>
     <HdFunct />
-        <Outlet />
+    <Outlet />
     <Footer_f />
     </>)
 }
@@ -45,7 +45,8 @@ const appRouter = createBrowserRouter([
             },
             {
                 path:"/restaurants/:id",
-                element:<RestaurantPage />
+                element:<RestaurantPage />,
+                errorElement:<ErrorPage />
             }
         ]
     }

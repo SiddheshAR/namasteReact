@@ -1,7 +1,10 @@
 import {swiggy} from "./swo.jsx";
+import {Link} from 'react-router-dom'
 import {img_path, luna, jks} from "/src/components/.config.js"
 import  {useState, useEffect} from "react";
 import {ShimmerUi} from "./shimmer.jsx";
+
+
 
 function filterData(searchInput,restaurants_db){
     let filterData1 = restaurants_db.filter((restaurant)=>
@@ -33,9 +36,11 @@ export const Body_f = () =>{
         let sw_data=await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.1075424&lng=72.8263142&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING');
         let sw_json = await sw_data.json();
         let new_rest = await sw_json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants;
+        // console.log(new_rest);
         restaurants_fn(new_rest);
         set_filterRest(new_rest);
     }   
+    // console.log(useState());
     useEffect(()=>{
         restaurant_fetch();
         // console.log("Okokok")
@@ -106,8 +111,13 @@ export const Body_f = () =>{
                 </button>
             </div>
             <div id="mainBdy">
+
             {filt_rest.map((resto)=>{
-              return <RestoCard {...resto.info}/>
+              return(<Link to= {"/restaurants/"+resto.info.id}
+              key={resto.info.id}
+              >
+                <RestoCard {...resto.info}/>
+              </Link>) 
             })}
             </div>
             </>
