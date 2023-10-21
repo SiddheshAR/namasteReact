@@ -14,5 +14,5 @@ const ErrorPage=() => {
              <h3>Try again</h3>
         </>
     )
-}
+} 
 export default ErrorPage; 

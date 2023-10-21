@@ -6,7 +6,12 @@ import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
 import Aboutus from "./src/components/about";
 import ErrorPage from "./src/components/errorpg";
 import ContactPage from "./src/components/contact";
-import RestaurantPage from "./src/components/restaurantPage"
+import RestaurantPage from "./src/components/restaurantPage";
+import ProfileComponent from "./src/components/profile";
+import NewProfile from "./src/components/newProfile";
+import SupportComp from "./src/components/supportTeam";
+import SalesComp from "./src/components/sales";
+
 let root = ReactDOM.createRoot(document.getElementById("root1"));
 
 
@@ -37,20 +42,39 @@ const appRouter = createBrowserRouter([
             },
             {
                 path:"/about",
-                element:<Aboutus />
-            },
+                element:<Aboutus />,
+                // element:<ProfileComponent />,
+                children:[
+                    {
+                        path:"profile2",
+                        element:<ProfileComponent />
+                    }
+                ]},
             {
                 path:"/contact",
-                element:<ContactPage />
+                element:<ContactPage />,
+                children:[
+                    {
+                        path:"support",
+                        element:<SupportComp country={"India"}/>
+                    },
+                    {
+                        path:"sales",
+                        element:<SalesComp city={"Mumbai"}/>
+                    }
+                ]
             },
             {
                 path:"/restaurants/:id",
                 element:<RestaurantPage />,
                 errorElement:<ErrorPage />
+            },{
+                path:"/newProfile",
+                element:<NewProfile name={"Siddhesh2"}/>
             }
         ]
     }
-])
+]) 
 
 root.render(<RouterProvider router={appRouter} />);
 

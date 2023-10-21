@@ -2,8 +2,6 @@ import { useEffect,useState } from "react";
 import { useParams } from "react-router-dom";
 import {img_path} from ".config.js"
 
-
-
 const RestaurantPage=()=>{
     const [restoData,restDataUpdate] = useState([]);
     const [cusines,cusinesUpdate]=useState([]);
@@ -23,8 +21,6 @@ const RestaurantPage=()=>{
         const cusinesFinal = ark.data.cards[2].groupedCard.cardGroupMap.REGULAR.cards[1].card.card.itemCards
         cusinesUpdate(cusinesFinal);
         restDataUpdate(rest_result);
-        // console.log(rest_result);
-        // console.log(cusines);
         let cusines_list = cusinesFinal.map((x)=>x.card?.info?.name);
         // console.log(cusines_list);
         // return rest_result;
