@@ -1,4 +1,4 @@
-import React from "react";
+import React,{lazy} from "react";
 import ReactDOM from "react-dom/client";
 import {HdFunct} from "/src/components/header.jsx";
 import {Body_f} from "/src/components/restaurantCards.js";
@@ -11,15 +11,18 @@ import ProfileComponent from "./src/components/profile";
 import NewProfile from "./src/components/newProfile";
 import SupportComp from "./src/components/supportTeam";
 import SalesComp from "./src/components/sales";
+// import Instamart from "./src/components/instamart";
+// import Instamart from "./components/instamart";
+const Instamart = lazy(()=>import("./src/components/instamart"))
 
 let root = ReactDOM.createRoot(document.getElementById("root1"));
-
 
 const Footer_f = () =>{
     return( <>
 <h1>Footer</h1>
     </> )
 }
+
 
 const AppLayout =()=>{
     return(
@@ -38,7 +41,13 @@ const appRouter = createBrowserRouter([
         children:[
             {
                 path:"/",
-                element:<Body_f />
+                element:<Body_f />,
+                children:[
+                    {
+                        path:"instamart",
+                        element:<Instamart />
+                    }
+                ]
             },
             {
                 path:"/about",
@@ -67,7 +76,9 @@ const appRouter = createBrowserRouter([
             {
                 path:"/restaurants/:id",
                 element:<RestaurantPage />,
+
                 errorElement:<ErrorPage />
+
             },{
                 path:"/newProfile",
                 element:<NewProfile name={"Siddhesh2"}/>

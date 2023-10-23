@@ -1,9 +1,9 @@
 import {swiggy} from "./swo.jsx";
-import {Link} from 'react-router-dom'
+import {Link,Outlet} from 'react-router-dom'
 import {img_path, luna, jks} from "/src/components/.config.js"
 import  {useState, useEffect} from "react";
 import {ShimmerUi} from "./shimmer.jsx";
-
+import useOnline from "../utils/hooks/useOnline.js"
 
 
 function filterData(searchInput,restaurants_db){
@@ -27,7 +27,14 @@ const RestoCard= ({name, areaName, avgRating, cloudinaryImageId})=>{
         )
     }
 
+
 export const Body_f = () =>{
+    const networkStatus = useOnline();
+    if(!networkStatus){
+        return(
+            <><h2>No Internet</h2></>
+        )
+    }
 
     const [restaurants_db, restaurants_fn] = useState([]);
     const [filt_rest, set_filterRest] = useState([restaurants_db]);
@@ -36,50 +43,13 @@ export const Body_f = () =>{
         let sw_data=await fetch('https://www.swiggy.com/dapi/restaurants/list/v5?lat=19.1075424&lng=72.8263142&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING');
         let sw_json = await sw_data.json();
         let new_rest = await sw_json.data.cards[2].card.card.gridElements.infoWithStyle.restaurants;
-        // console.log(new_rest);
         restaurants_fn(new_rest);
         set_filterRest(new_rest);
     }   
-    // console.log(useState());
     useEffect(()=>{
         restaurant_fetch();
-        // console.log("Okokok")
     },[])
-    // if(restaurants_db?.length===0){
-    //     return (
-    //         <>
-    //             <div>
-    //                     <input type="text" 
-    //                         id="search-input" 
-    //                         placeholder="Search"
-    //                         value={searchInput}
-    //                         onChange={(e)=>{
-    //                             setSearchInput(e.target.value);
-    //                         }}  
-    //                         >
-    //                     </input>
-    //                     <button
-    //                     onClick={()=>{
-    //                         let sr_data = filterData(searchInput,restaurants_db);
-    //                         set_filterRest(sr_data);
-    //                     }
-    //                     }
-    //                     >
-    //                     Search
-    //                     </button>
-    //                     <button
-    //                     onClick={()=>{
-    //                         restaurant_fetch();
-    //                     }
-    //                     }
-    //                     >
-    //                     Reset
-    //                     </button>
-    //             </div>
-    //         <h2>Found Nothing</h2>
-    //         </>
-    //     )
-    // }
+
         return (restaurants_db.length===0) ? (<ShimmerUi />) : (
             <>
             <div>
@@ -96,8 +66,7 @@ export const Body_f = () =>{
                 onClick={()=>{
                     let sr_data = filterData(searchInput,restaurants_db);
                     set_filterRest(sr_data);
-                }
-                }
+                }}
                 >
                 Search
                 </button>
@@ -111,7 +80,7 @@ export const Body_f = () =>{
                 </button>
             </div>
             <div id="mainBdy">
-
+                <Outlet/>
             {filt_rest.map((resto)=>{
               return(<Link to= {"/restaurants/"+resto.info.id}
               key={resto.info.id}

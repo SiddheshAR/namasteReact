@@ -9,7 +9,7 @@ class NewProfile extends React.Component{
             userInfo:"Siddhesh"
         }
         console.log("Constructor Rendering Finished.")
-    }
+    } 
     async componentDidMount(){
             let git_profile = await fetch("https://api.github.com/users/SiddheshAR");
             let git_json = await git_profile.json();
