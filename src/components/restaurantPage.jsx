@@ -25,8 +25,8 @@ const RestaurantPage=()=>{
     }
     return(
         <div id="rest_page_container">
-            <div>
-                <div id="Resto-Details"><h3>{restoData?.name}</h3></div>
+            <div className="flex">
+                <div className="text-xl" id="Resto-Details"><h3>{restoData?.name}</h3></div>
                 <div id="Resto-Details"><h3>Restaurant ID:{resParam.id}</h3></div>
                 <div id="Resto-Details"><h3>{restoData?.cuisines}</h3></div>
                 <div id="Resto-Details"><h3>{restoData?.locality}</h3></div>

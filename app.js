@@ -1,5 +1,6 @@
 import React,{lazy} from "react";
 import ReactDOM from "react-dom/client";
+import {useContext,useState} from "react";
 import {HdFunct} from "/src/components/header.jsx";
 import {Body_f} from "/src/components/restaurantCards.js";
 import { createBrowserRouter, RouterProvider,Outlet } from "react-router-dom";
@@ -12,7 +13,9 @@ import NewProfile from "./src/components/newProfile";
 import SupportComp from "./src/components/supportTeam";
 import SalesComp from "./src/components/sales";
 // import Instamart from "./src/components/instamart";
-// import Instamart from "./components/instamart";
+import Zepto from "./src/components/Zepto";
+import LocContext from "./src/utils/hooks/useLocation.js";
+
 const Instamart = lazy(()=>import("./src/components/instamart"))
 
 let root = ReactDOM.createRoot(document.getElementById("root1"));
@@ -25,11 +28,18 @@ const Footer_f = () =>{
 
 
 const AppLayout =()=>{
+
+    const [UserLocation,setlocation]=useState({location:"Colaba"});
+
     return(
     <>
-    <HdFunct />
-    <Outlet />
-    <Footer_f />
+    <div className="bg-gray-300">
+    <LocContext.Provider value={{location:UserLocation,setlocation:setlocation}}>
+        <HdFunct />
+        <Outlet />
+        <Footer_f />
+    </LocContext.Provider>
+    </div>
     </>)
 }
 
@@ -72,6 +82,10 @@ const appRouter = createBrowserRouter([
                         element:<SalesComp city={"Mumbai"}/>
                     }
                 ]
+            },
+            {
+                path:"/zepto",
+                element:<Zepto />
             },
             {
                 path:"/restaurants/:id",
